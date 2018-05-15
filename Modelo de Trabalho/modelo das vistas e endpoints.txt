@@ -1,0 +1,27 @@
+													Cinemas get('/cinemas')
+													
+									- Vasco da Gama 
+									- Colombo
+							---------------------------------------------------------------------------------------------
+													Colombo get('/cinemas/name')
+									
+									- cidade 
+									- salas:
+										-Imax
+										-Atmos
+							----------------------------------------------------------------------------------------------
+													Imax get(cinemas/name/numberOfRoom)
+									number_room: 1,
+									number_of_rows: 20,
+									seats_per_row: 20,
+									Sessions(botão)
+							-----------------------------------------------------------------------------------------------
+													All Sessions get(/cinemas/name/numberOfRoom/sessions)
+									
+									-date: '24-03-2018', hour: '14h', movie_name: 'Star wars'
+									-date: '24-03-2018',hour: '18h30' movie_name: 'Star wars' (botao po nome do filme)
+							------------------------------------------------------------------------------------------------
+													Star Wars get(/movies?name=Star+Wars)
+													
+										dipslay das infos da api ja obtidas, duration doesn't exist
+					

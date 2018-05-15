@@ -1,0 +1,28 @@
+<script language='javascript' type='text/javascript' src = '/javascripts/createCinema.js'></script>
+<h1 align="left" style="color: #00B7FF">CINEMAS</h1>
+<p></p>
+
+<table id="cinemas" style="margin: 10px">
+    {{#each results}}
+        <tr style="margin: 10px" id="{{id}}">
+
+                <td>
+                    <a href='/cinemas/{{id}}'>
+                        {{id}}
+                    </a>
+                </td>
+            <td>
+                <form>
+                    <input type="hidden" id="namecinema" name="name" value="{{id}}">
+                    <button id="delete" value="click" class="alert-danger">x</button>
+                </form>
+            </td>
+        </tr>
+    {{/each}}
+</table>
+
+<form>
+    New cinema: <input type="text" id="name">
+    Cinema city: <input type="text" id="city">
+    <input type="submit" id="createCinema" value="+" class="alert-success">
+</form>

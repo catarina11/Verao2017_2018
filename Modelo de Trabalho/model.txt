@@ -1,0 +1,18 @@
+Cinemas{
+	-nome "Colombo"
+	-city "Lisboa"
+	-Rooms [
+		{
+			nome
+			nº de sala
+			nº de filas
+			nº de lugares por filas
+			Sessões{
+				Filme{vou buscar à api}
+				data
+			}
+				
+			
+		}
+	]
+}
