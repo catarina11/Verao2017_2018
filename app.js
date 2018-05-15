@@ -35,7 +35,7 @@ router.get('/',(req, resp, next) =>{
 })
 
 
-router.use('/login',userRoute)
+router.use(userRoute)
 router.use('/cinemas',cinRouter)
 router.use('/movies',movieRouter)
 
