@@ -35,10 +35,21 @@ router.get('/:name', (req, resp, next)=>{
 })
 
 router.get('/:name/:theater', (req, resp, next)=>{
-    cin.getRoom(req.params.name, req.params.theater, (err, data)=>{
+    cin.getRoom(req.params.name, req.params.theater, (err, theater)=>{
         if(err) return next(err)
-        resp.render('cinemaRoomView', data)
+        movieDBService.getMoviesInExibition(req.query.page,(err, movies)=>{
+            if(err) return next(err)
+            let data = theater
+            data.movies = movies.results
+            if(movies.previousPage)
+                data.previousPage = movies.previousPage
+            if(movies.nextPage)
+                data.nextPage = movies.nextPage
+
+            resp.render('cinemaRoomView', data)
+        })
     })
+
 })
 
 router.get('/:name/:theater/session', (req, resp, next)=>{

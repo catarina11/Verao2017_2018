@@ -1,0 +1,31 @@
+<table>
+{{#each results}}
+<tr>
+    <p></p>
+    <li>
+
+        <a href = '../{{id}}'>{{original_title}}</a>
+        <p></p>
+        <form method="post" action="/cinemas/{{cinemaName}}/{{name}}">
+            <input type="hidden" name="cinName" value="{{cinemaName}}">
+            <input type="hidden" name="name" value="{{name}}">
+            <input type="hidden" name="numberRoom" value="{{number_room}}">
+            date: <input type="text" name="date">
+            hour: <input type="text" name="hour">
+            Name of Movie: <input type="text" name="movie">
+            Movie ID: <input type="text" name="id">
+            <input type="submit" id="sess" value="Create new Session">
+        </form>
+    </li>
+{{/each}}
+</table>
+
+
+
+{{#if previousPage}}
+    <a class="buttonPage" href="?page={{previousPage}}"> previous page </a>
+{{/if}}
+
+{{#if nextPage}}
+    <a class="buttonPage" href="?page={{nextPage}}"> next page </a>
+{{/if}}

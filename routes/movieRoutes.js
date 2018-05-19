@@ -8,7 +8,7 @@ const CinemaObj = require('./../Model/CinemaObj')
 
 const express = require('express')
 const router = express.Router()
-const movie = require('../services/movieService')()
+const movie = require('../services/movieService')
 
 module.exports = router
 
@@ -18,3 +18,13 @@ router.get('/:movie_id', (req, resp, next)=>{
         resp.render('movieView', data)
     })
 })
+
+router.get('/allMovies/inExibitionTheaters', (req, resp, next)=>{
+    movie.getMoviesInExibition(req.query.page,(err, data)=>{
+        if(err) return next(err)
+        resp.render('movieInExibitionView', data)
+    })
+})
+
+
+

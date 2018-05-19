@@ -10,17 +10,12 @@ const limiter = new Ratelimiter({
     ,maxWaitingTime: 9
 });
 const movieSearchCache = {}
+const moviesInExibitionCache = []
 /*obter o titulo do filme*/
 
-module.exports = init
-
-function init(dataSource) {
-    const req = dataSource
-        ? dataSource
-        : require('request')
-
-    return {
+module.exports = {
         getIDofMovie,
+        getMoviesInExibition
     }
 
     /*obter as informções do filme a partir do id (chamada à api)
@@ -42,6 +37,27 @@ function init(dataSource) {
             })
         }
     }
+    
+    /*obter os filmes em exibição*/
+    function getMoviesInExibition(page, cb) {
+        const path = `https://api.themoviedb.org/3/movie/now_playing?api_key=${api_key}&page=${page}`
+        var idx=0
+      //  for(; idx<moviesInExibitionCache.length; ++idx){
+            if (moviesInExibitionCache[idx])
+                cb(null, moviesInExibitionCache[idx])
+           else {
+                request(path, (error, res) => {
+                    if (error) return cb(error)
+                    var movieRes = new CinemaObj.MovieExibitionDTO(res)
+                    if(res.page>1) movieRes.previousPage = 1
+                    if(res.page<res.total_pages) movieRes.nextPage = res.page +1
+                    moviesInExibitionCache[moviesInExibitionCache.length + 1] = movieRes
+                    cb(null, movieRes)
+                })
+            }
+        //}
+
+    }
 
     function request(path, cb) {
         limiter.request({url: path, method: 'GET'}, (err, res) => {
@@ -49,4 +65,4 @@ function init(dataSource) {
             cb(null, JSON.parse(res.body))
         })
     }
-}
+

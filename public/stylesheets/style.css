@@ -1,0 +1,6 @@
+a.buttonPage:link, a.buttonPage:visited {
+    background-color: gray;
+    color: black;
+    padding: 14px 25px;
+    text-align: center;
+}

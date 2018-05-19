@@ -1,56 +1,77 @@
-    <h3>Room: {{name}}</h3>
+<h3>Room: {{name}}</h3>
 
-    <li>Number of room: {{number}}</li>
-    <li>Number of row: {{rows}}
-        <form type="hidden" method="post" action="/cinemas/{{cinemaName}}/{{name}}/{{number}}/editNumberOfRows">
-            Change room number:<input type="text" name="newNumbRow" value="{{newNumbRow}}">
-            <input type = "hidden" name ="cinName" value= "{{cinemaName}}" >
-            <input type = "hidden" name ="roomName" value= "{{name}}" >
-            <input type = "hidden" name ="roomNumb" value= "{{number}}" >
-            <button id="editRows" value="click">Edit number of row</button>
-        </form>
-    </li>
-    <li>Seats per of row: {{seats}}
-        <form type="hidden" method="post" action="/cinemas/{{cinemaName}}/{{name}}/{{number}}/editSeats">
-            Change room number:<input type="text" name="newValSeats" value="{{newValSeats}}">
-            <input type = "hidden" name ="cinName" value= "{{cinemaName}}" >
-            <input type = "hidden" name ="roomName" value= "{{name}}" >
-            <input type = "hidden" name ="roomNumb" value= "{{number}}" >
-            <button id="editSeats" value="click">Edit seats per row</button>
-        </form>
-    </li>
+<li>Number of room: {{number}}</li>
+<li>Number of row: {{rows}}
+    <form type="hidden" method="post" action="/cinemas/{{cinemaName}}/{{name}}/{{number}}/editNumberOfRows">
+        Change room number:<input type="text" name="newNumbRow" value="{{newNumbRow}}">
+        <input type="hidden" name="cinName" value="{{cinemaName}}">
+        <input type="hidden" name="roomName" value="{{name}}">
+        <input type="hidden" name="roomNumb" value="{{number}}">
+        <button id="editRows" value="click">Edit number of row</button>
+    </form>
+</li>
+<li>Seats per of row: {{seats}}
+    <form type="hidden" method="post" action="/cinemas/{{cinemaName}}/{{name}}/{{number}}/editSeats">
+        Change room number:<input type="text" name="newValSeats" value="{{newValSeats}}">
+        <input type="hidden" name="cinName" value="{{cinemaName}}">
+        <input type="hidden" name="roomName" value="{{name}}">
+        <input type="hidden" name="roomNumb" value="{{number}}">
+        <button id="editSeats" value="click">Edit seats per row</button>
+    </form>
+</li>
 <h3>Sessions:</h3>
-<form method="post" action="/cinemas/{{cinemaName}}/{{name}}">
-    <input type="hidden" name="cinName" value="{{cinemaName}}">
-    <input type="hidden" name="name" value="{{name}}">
-    <input type="hidden" name="numberRoom" value="{{number_room}}">
-    date: <input type="text" name="date">
-    hour: <input type="text" name="hour">
-    Name of Movie: <input type="text" name="movie">
-    Movie ID: <input type="text" name="id">
-    <input type="submit" id="sess" value="Create new Session">
-</form>
-    <table class="table-bordered" STYLE="margin: 10px">
-            {{#each sessions}}
-                <tr>
-                    <td>
-                        <form action="/cinemas/{{../cinemaName}}/{{../name}}/session">
-                            <input type="hidden" name="date" value="{{date}}">
-                            <input type="hidden" name="hour" value="{{hour}}">
-                            <button class="btn-link" id="delete" value="click">{{date}}:{{hour}}</button>
-                        </form>
 
-                    </td>
-                    <td>
-                        <form method="post" action="/cinemas/{{../cinemaName}}/{{../name}}/{{movie_id}}/delete">
-                            <input type="hidden" name="cinName" value="{{../cinemaName}}">
-                            <input type="hidden" name="roomName" value="{{../name}}">
-                            <input type="hidden" name="numberRoom" value="{{../number}}">
-                            <input type="hidden" name="cinemaSessionMovieID" value="{{movie_id}}">
-                            <button class="alert-danger" id="delete" value="click">x</button>
-                        </form>
-                    </td>
-                </tr>
-            {{/each}}
+<table class="table-bordered" STYLE="margin: 10px">
+    {{#each sessions}}
+        <tr>
+            <td>
+                <form action="/cinemas/{{../cinemaName}}/{{../name}}/session">
+                    <input type="hidden" name="date" value="{{date}}">
+                    <input type="hidden" name="hour" value="{{hour}}">
+                    <button class="btn-link" id="delete" value="click">{{date}}:{{hour}}</button>
+                </form>
+
+            </td>
+            <td>
+                <form method="post" action="/cinemas/{{../cinemaName}}/{{../name}}/{{movie_id}}/delete">
+                    <input type="hidden" name="cinName" value="{{../cinemaName}}">
+                    <input type="hidden" name="roomName" value="{{../name}}">
+                    <input type="hidden" name="numberRoom" value="{{../number}}">
+                    <input type="hidden" name="cinemaSessionMovieID" value="{{movie_id}}">
+                    <button class="alert-danger" id="delete" value="click">x</button>
+                </form>
+            </td>
+        </tr>
+    {{/each}}
+</table>
+<div>
+    <table>
+        {{#each movies}}
+        <tr>
+            <br>
+            <li>
+                <a href = '../../movies/{{id}}'>{{original_title}}</a>
+                <p></p>
+                <form method="post" action="/cinemas/{{../cinemaName}}/{{../name}}">
+                    <input type="hidden" name="cinName" value="{{../cinemaName}}">
+                    <input type="hidden" name="name" value="{{../name}}">
+                    <input type="hidden" name="numberRoom" value="{{../number_room}}">
+                    date: <input type="text" name="date">
+                    hour: <input type="text" name="hour">
+                    <input type="hidden" name="movie" value="{{original_title}}">
+                    <input type="hidden" name="id" value="{{id}}">
+                    <input type="submit" id="sess" value="Create new Session">
+                </form>
+            </li>
+        {{/each}}
     </table>
-    </table>
+    <br>
+    {{#if previousPage}}
+        <a class="buttonPage" href="?page={{previousPage}}"> previous page </a>
+    {{/if}}
+
+    {{#if nextPage}}
+        <a class="buttonPage" href="?page={{nextPage}}"> next page </a>
+    {{/if}}
+
+</div>

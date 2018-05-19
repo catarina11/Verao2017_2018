@@ -26,22 +26,7 @@
                 <a href ="/movies/{{movie_id}}">
                     {{movie_name}}
                 </a>
-                <form method="post" action="/cinemas/{{cinemaName}}/{{theaterName}}/{{movie_name}}/{{movie_id}}/editIdAndTiTleMovie">
-                    Change Title of Movie:<input type="text" name="newNameMovie" value="{{newNameMovie}}">
-                    Change ID of Movie:<input type="text" name="newIdMovie" value="{{newIdMovie}}">
-                    <input type = "hidden" name ="cinName" value= "{{cinemaName}}" >
-                    <input type = "hidden" name ="roomName" value= "{{theaterName}}" >
-                    <input type = "hidden" name ="hour" value= "{{hour}}" >
-                    <input type = "hidden" name ="date" value= "{{date}}" >
-                    <input type = "hidden" name ="movieName" value= "{{movie_name}}" >
-                    <input type = "hidden" name ="movieID" value= "{{movie_id}}" >
-
-                    <button id="editMovie" value="click">Edit Movie
-                        <a href ="/movies/{{newIdMovie}}">
-                            {{newNameMovie}}
-                        </a>
-                    </button>
-                </form>
+               
 
             </li>
     </table>
