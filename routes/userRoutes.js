@@ -60,7 +60,7 @@ useRouter.post('/registerStaff', (req, res, next) => {
         userService.signin("Admin",user, (err, user, info) => {
             if (err) return next(err)
             if (info) return next(new Error(info))
-            userService.authenticate( req.body.username, req.body.password, (err, user, info) => {
+            userService.authenticateUser( req.body.username, req.body.password, (err, user, info) => {
                 if(err) return next(err)
                 if(info){
                     req.flash('loginError', info)

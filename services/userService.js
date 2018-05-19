@@ -7,7 +7,7 @@ module.exports = {
     'find': find,
     'authenticate': authenticate,
     'authenticateUser': authenticateUser,
-    //'signin': signin,
+    'signin': signin,
     'save':save
 }
 
@@ -18,6 +18,16 @@ function find(username, cb) {
         cb(null, JSON.parse(body))
     })
 }
+
+function findStaff(username, cb) {
+    const path = CINEMA_DB_USERS + 'Admin/'
+    request(path, (err, res, body) => {
+        if(err) return cb(err)
+        var users =  JSON.parse(body)
+        cb(null, JSON.parse(body))
+    })
+}
+
 function authenticate(username, passwd, cb) {
     const path = CINEMA_DB_USERS + username
     request(path, (err, res, body) => {
@@ -37,24 +47,34 @@ function authenticateUser(username, passwd, cb) {
         if(res.statusCode != 200) return cb(null, null, `User ${username} does not exists`)
        // const urser =body.users
         const allusers = JSON.parse(body)
-        var user = null
-        for(let i=0; i<allusers.users.length; ++i){
-            if(allusers.users[i].username==username)
-                user = allusers.users[i]
-        }
-        if(passwd != user.password) return cb(null, null, 'Invalid password')
-        cb(null, user)
+        allusers.users.forEach(userStaff=>{
+            if(userStaff.username==username){
+                if(userStaff.password!= passwd) return cb(null, null, 'Invalid password')
+            }
+        })
+
+        cb(null, allusers)
     })
 }
 //todo
 function signin(admin, user, cb) {
-    find(user.username,(err, obj) =>{
-        if(obj.username == user.username) return cb(null, null, `User ${user.username} already exists`)
-        save(user,cb)
+    findStaff(user.username,(err, obj) =>{
+        var arrayStaff = obj.users
+        var idx = 0
+        obj.users.forEach(userStaff=>{
+            if(userStaff.username == user.username)
+                return cb(null, null, `User ${user.username} already exists`)
+            else ++idx
+            if(obj.users.length==idx)
+                arrayStaff.push(user)
+
+
+        })
+        save(obj,cb)
     })
 }
 function save(user, cb) {
-    const path = CINEMA_DB_USERS + user.username
+    const path = CINEMA_DB_USERS + 'Admin/'
     const options = {
         method: "PUT",
         headers: { "Content-Type": "application/json"},
