@@ -1,7 +1,26 @@
+<style>
+    .cols {
+        margin: auto;
+        width: 50%;
+        border: 3px solid dimgray;
+        background: dimgray;
+        padding: 10px;
+
+    }
+
+    .cols .col1 {
+        margin: inherit;
+        width: 40%;
+        border: 3px solid lightgray;
+        background: lightgray;
+        padding: 10px;
+
+    }
+</style>
 <div class="col-md-4"></div>
-<div class="col-md-4 panel well">
+<div class="cols">
     {{#if loginError.message}}
-        <div class="alert alert-warning alert-dismissible" role="alert">
+        <div class="col1" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -10,16 +29,16 @@
     {{/if}}
     <form action="/Admin/LoginStaff" method="post">
         <div class="form-group">
-            <label>Username:</label>
-            <input type="text" name="username" class="form-control"/>
+            <label style="color: lightskyblue">Username:</label>
+            <input type="text" name="username" class="form-control" style="color: black"/>
         </div>
         <div class="form-group">
-            <label>Password:</label>
+            <label style="color: lightskyblue">Password:</label>
             <input type="password" name="password" class="form-control"/>
         </div>
         <div class="form-group">
-            <input type="submit" value="Login" class="form-control" formaction="/loginStaff" formmethod="post"/>
-            <input type="submit" value="Register" class="form-control" formaction="/registerStaff" formmethod="post"/>
+            <input style="background-color:lightgray;" type="submit" value="Login" class="form-control" formaction="/loginStaff" formmethod="post"/>
+            <input style="background-color:lightgray;" type="submit" value="Register" class="form-control" formaction="/registerStaff" formmethod="post"/>
         </div>
     </form>
 </div>

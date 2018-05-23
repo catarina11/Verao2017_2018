@@ -1,25 +1,47 @@
+<style>
+
+
+    .lol {
+        margin: auto;
+        width: 50%;
+        border: 3px solid dimgray;
+        background: dimgray;
+        padding: 10px;
+
+    }
+
+    .lol .lol2 {
+        margin: inherit;
+        width: 40%;
+        border: 3px solid lightgray;
+        background: lightgray;
+        padding: 10px;
+
+    }
+
+</style>
 <div class="col-md-4"></div>
-<div class="col-md-4 panel well">
+<div class="lol">
     {{#if loginError.message}}
-        <div class="alert alert-warning alert-dismissible" role="alert">
+        <div class="lol2" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+                <span  aria-hidden="true">&times;</span>
             </button>
             {{loginError.message}}
         </div>
     {{/if}}
-    <form action="/Admin/LoginStaff" method="post">
-        <div class="form-group">
-            <label>Username:</label>
-            <input type="text" name="username" value="Admin" class="form-control"/>
+    <form  class="log" action="/Admin/LoginStaff" method="post">
+        <div class="form-group" >
+            <label style="color: lightskyblue"><b>Username:</b></label>
+            <input type="text" name="username" value="Admin" class="form-control" style="color: black"/>
         </div>
         <div class="form-group">
-            <label>Password:</label>
+            <label style="color: lightskyblue"><b>Password:</b></label>
             <input type="password" name="password" class="form-control"/>
         </div>
 
         <div class="form-group">
-                <input type="submit" value="Login" class="form-control" formaction="/login" formmethod="post">
+                <input style="background-color:lightgray;" type="submit" value="Login" class="form-control" formaction="/login" formmethod="post">
         </div>
     </form>
 </div>

@@ -24,9 +24,9 @@ router.get('/', (req, resp, next)=>{
     cin.getAllCinemas((err, data)=>{
         if(err) return next(err)
         if(req.user!=undefined)
-            resp.render('cinemaListView',  {cinemas: data, menuState:{user: req.user.username}})
+            resp.render('cinemaListViewWithoutAjax',  {cinemas: data, menuState:{user: req.user.username}})
         else
-            resp.render('cinemaListView',  {cinemas: data})
+            resp.render('cinemaListViewWithoutAjax',  {cinemas: data})
     })
 })
 
@@ -52,7 +52,10 @@ router.get('/:name/:theater', (req, resp, next)=>{
             if(movies.nextPage)
                 data.nextPage = movies.nextPage
 
-            resp.render('cinemaRoomView', data)
+            if(req.user!=undefined)
+                resp.render('cinemaRoomView', {cinemas: data, menuState:{user: req.user.username}})
+            else
+                resp.render('cinemaRoomView', {cinemas: data})
         })
     })
 
@@ -84,13 +87,12 @@ const cinema = hbs.compile(fs
 router.post('/', (req, resp, next)=>{
     cinemaCreates.createNewCinema(req.body.name, req.body.city, (err,data)=>{
         if(err) return resp.status(503)
-        //resp.redirect('/cinemas')
-        resp.status(200).send(cinema(data))
+        resp.redirect('/cinemas')
     })
 })
 
 router.post('/:name', (req, resp, next)=>{
-    cinemaCreates.createNewTheater(req.body.name, req.body.theaterName, req.body.numbOfRows, req.body.seats, (err, data)=>{
+    cinemaCreates.createNewTheater(req.params.name, req.body.theaterName, req.body.numbOfRows, req.body.seats, (err, data)=>{
         if(err) return next(err)
         resp.redirect('/cinemas/'+data.name)
     })
@@ -100,8 +102,7 @@ router.post('/:name', (req, resp, next)=>{
 router.post('/:id/delete', (req, resp, next)=>{
     cinemaDeletes.removeCinema(req.params.id, (err, data)=>{
         if(err) return next(err)
-        resp.status(200).send(req.params.id)
-        // /resp.redirect('/cinemas')
+        resp.redirect('/cinemas')
     })
 })
 
@@ -136,7 +137,7 @@ router.post('/:name/edit', (req, resp, next)=>{
 })
 
 router.post('/:cinemaName/:name/editTheater', (req, resp, next)=>{
-    cinemaEdits.replaceNameRoom(req.body.cinemaName, req.body.newName,
+    cinemaEdits.replaceNameRoom(req.params.cinemaName, req.body.newName,
         req.body.oldRoomName, (err, data)=>{
         if(err) return next(err)
         resp.redirect('/cinemas/' + data.name)

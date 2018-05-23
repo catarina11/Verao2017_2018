@@ -1,24 +1,20 @@
-<script type='text/javascript' language='JavaScript' src='../public/javascripts/createCinema.js' ></script>
-
 <h1 align="center" style="color: lightskyblue">CINEMAS</h1>
 <p></p>
 
+
 <table id="cinemas" style="margin: 10px">
     {{#each cinemas.results}}
-
         <tr style="margin: 10px" id="{{id}}">
-
             <td>
                 <a  style="color:white;" href='/cinemas/{{id}}'><b>
                     {{id}}</b>
                 </a>
             </td>
-
             {{#if ../menuState.user}}
                 <td>
-                    <form>
+                    <form  method="post" action="/cinemas/{{id}}/delete">
                         <input type="hidden" id="namecinema" name="name" value="{{id}}">
-                        <button id="delete" value="click" class="alert-danger">x</button>
+                        <button id="delete" value="click" class="alert-danger" value="click">x</button>
                     </form>
                 </td>
             {{/if}}
@@ -26,11 +22,11 @@
         </tr>
     {{/each}}
 </table>
-
 {{#if menuState.user}}
-    <form>
-        New cinema: <input type="text" id="name">
-        Cinema city: <input type="text" id="city">
+    <form method="post" action="/cinemas" style="color: cornflowerblue; margin: 10px">
+       <b> New cinema:</b> <input type="text" name="name">
+        <b>Cinema city: </b><input type="text" name="city">
         <input type="submit" id="createCinema" value="+" class="alert-success">
     </form>
 {{/if}}
+

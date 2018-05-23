@@ -32,9 +32,9 @@ router.use(passport.session())
 router.get('/',(req, resp, next) =>{
     resp.setHeader('Content-Type', 'text/html')
     if(req.user!=undefined)
-        resp.render('principalView', {layout : false, menuState:{user: req.user.username}})
+        resp.render('principalView', {menuState:{user: req.user.username}})
     else
-        resp.render('principalView', {layout : false})
+        resp.render('principalView')
 })
 
 

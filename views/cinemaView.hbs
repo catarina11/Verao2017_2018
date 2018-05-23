@@ -1,26 +1,19 @@
-<h1 align="left" style="color: #00B7FF">{{name}}</h1>
-<h3>City: {{cinemas.city}}</h3>
-{{#if menuState.user}}
-<form method="post" action="/cinemas/{{cinemas.name}}">
-    <input type="hidden" name="name" value="{{name}}">
-    New Theater: <input type="text" name="theaterName">
-    Number of rows: <input type="text" name="numbOfRows">
-    Seats per row: <input type="text" name="seats">
-    <button id="th" value="click" class="alert-success">+</button>
-</form>
-{{/if}}
+
+<h1 align="center" style="color: deepskyblue"><b>{{cinemas.name}}</b></h1>
+<h3 style="color: white"><b style="color: lightskyblue">City:</b> {{cinemas.city}}</h3>
+
 <table>
-    <h3>Rooms:</h3>
+    <h3><b style="color: lightskyblue">Rooms:</b></h3>
     {{#each cinemas.rooms}}
         <tr>
             <td>
-                <a href="/cinemas/{{../cinemas.name}}/{{name}}?page=1">
-                    {{name}}
+                <a style="color: white; padding-left: 20px" href="/cinemas/{{../cinemas.name}}/{{name}}?page=1">
+                    <b>{{name}}</b>
                 </a>
             {{#if ../menuState.user}}
             <td>
-                <form method="post" action="/cinemas/{{../name}}/{{name}}/delete">
-                    <input type="hidden" name="cinemaName" value="{{../name}}">
+                <form method="post" action="/cinemas/{{../cinemas.name}}/{{name}}/delete">
+                    <input type="hidden" name="cinemaName" value="{{../cinemas.name}}">
                     <input type="hidden" name="roomName" value="{{name}}">
                     <input type="hidden" name="nRoom" value="{{number_room}}">
                     <button id="deleteRoom" value="click" class="alert-danger">x</button>
@@ -30,11 +23,11 @@
             <td>
 
                 <form method="post"
-                      action="/cinemas/{{../name}}/{{name}}/editTheater">
-                    Rename Room:<input type="text" name="newName">
+                      action="/cinemas/{{../cinemas.name}}/{{name}}/editTheater" style="color: cornflowerblue; padding-left: 20px">
+                    <b>Rename Room: </b><input style="color: black" type="text" name="newName">
                     <input type="hidden" name="cinemaName" value="{{../name}}">
                     <input type="hidden" name="oldRoomName" value="{{name}}">
-                    <button id="editRoom" value="click">Edit Theater</button>
+                    <button id="editRoom" value="click" class="button1">Edit Theater</button>
                 </form>
 
             </td>
@@ -42,3 +35,13 @@
         </tr>
     {{/each}}
 </table>
+<br>
+{{#if menuState.user}}
+    <form method="post" action="/cinemas/{{cinemas.name}}" style="color: cornflowerblue;  padding-left: 20px">
+        <input type="hidden" name="name" value="{{name}}">
+        <b>New Theater: </b><input style="color: black" type="text" name="theaterName">
+        <b>Number of rows: </b><input style="color: black" type="text" name="numbOfRows">
+        <b>Seats per row: </b><input style="color: black" type="text" name="seats">
+        <button id="th" value="click" class="alert-success">+</button>
+    </form>
+{{/if}}
