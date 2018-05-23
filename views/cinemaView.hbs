@@ -1,21 +1,23 @@
 <h1 align="left" style="color: #00B7FF">{{name}}</h1>
-<h3>City: {{city}}</h3>
-<form method="post" action="/cinemas/{{name}}">
+<h3>City: {{cinemas.city}}</h3>
+{{#if menuState.user}}
+<form method="post" action="/cinemas/{{cinemas.name}}">
     <input type="hidden" name="name" value="{{name}}">
     New Theater: <input type="text" name="theaterName">
     Number of rows: <input type="text" name="numbOfRows">
     Seats per row: <input type="text" name="seats">
     <button id="th" value="click" class="alert-success">+</button>
 </form>
+{{/if}}
 <table>
     <h3>Rooms:</h3>
-    {{#each rooms}}
+    {{#each cinemas.rooms}}
         <tr>
             <td>
-                <a href="/cinemas/{{../name}}/{{name}}?page=1">
+                <a href="/cinemas/{{../cinemas.name}}/{{name}}?page=1">
                     {{name}}
                 </a>
-
+            {{#if ../menuState.user}}
             <td>
                 <form method="post" action="/cinemas/{{../name}}/{{name}}/delete">
                     <input type="hidden" name="cinemaName" value="{{../name}}">
@@ -24,6 +26,7 @@
                     <button id="deleteRoom" value="click" class="alert-danger">x</button>
                 </form>
             </td>
+
             <td>
 
                 <form method="post"
@@ -33,9 +36,9 @@
                     <input type="hidden" name="oldRoomName" value="{{name}}">
                     <button id="editRoom" value="click">Edit Theater</button>
                 </form>
-                </form>
+
             </td>
-            </td>
+    {{/if}}
         </tr>
     {{/each}}
 </table>

@@ -23,14 +23,20 @@ module.exports = router
 router.get('/', (req, resp, next)=>{
     cin.getAllCinemas((err, data)=>{
         if(err) return next(err)
-        resp.render('cinemaListView', data)
+        if(req.user!=undefined)
+            resp.render('cinemaListView',  {cinemas: data, menuState:{user: req.user.username}})
+        else
+            resp.render('cinemaListView',  {cinemas: data})
     })
 })
 
 router.get('/:name', (req, resp, next)=>{
     cin.getCinema(req.params.name, (err, data)=>{
         if(err) return next(err)
-        resp.render('cinemaView', data)
+        if(req.user!=undefined)
+            resp.render('cinemaView', {cinemas: data, menuState:{user: req.user.username}})
+        else
+            resp.render('cinemaView', {cinemas: data})
     })
 })
 
@@ -57,6 +63,17 @@ router.get('/:name/:theater/session', (req, resp, next)=>{
         if(err) return next(err)
         resp.render('cinemaSessionMovieName', data)
     })
+})
+
+
+router.get('/:cinemaName/:roomName/:date/:hour/:movie_id/bookTickets', (req, resp, next)=>{
+   cin.getBookingTickets(req.params.cinemaName, req.params.roomName,
+       req.params.date, req.params.hour, req.params.movie_id, (err,data)=>{
+           if(err) return next(err)
+           resp.render('bookTickets.hbs',data)
+   })
+
+
 })
 
 /************************************POSTS************************************/
@@ -166,5 +183,23 @@ router.post('/:cinemaName/:roomName/:movie_name/:movie_id/editIdAndTiTleMovie', 
             if (err) return next(err)
             resp.redirect('/cinemas/' + req.body.cinName + '/' + req.body.roomName +
                 '/session?date=' + req.body.date + "&hour="+ req.body.hour)
+        })
+})
+/************************************BooksTickets************************************/
+router.post('/:cinemaName/:roomName/:date/:hour/:movie_id/bookTickets', (req, resp, next)=>{
+    cinemaCreates.createBookingTickets(req.body.cinName, req.body.roomName,
+        req.body.date, req.body.hour, req.body.movieID, (err, data)=>{
+            if (err) return next(err)
+          resp.redirect('/cinemas/' + req.body.cinName + '/' + req.body.roomName +
+               '/' + req.body.date + "/"+ req.body.hour + '/' + req.body.movieID + '/bookTickets')
+        })
+})
+
+router.post('/:cinemaName/:roomName/:date/:hour/:movie_id/:rowSeat/bookTickets', (req, resp, next)=>{
+    cinemaCreates.reserve(req.body.cinName, req.body.roomName,
+        req.body.date, req.body.hour, req.body.movieID, req.body.rowSeat, (err, data)=>{
+            if (err) return next(err)
+            resp.redirect('/cinemas/' + req.body.cinName + '/' + req.body.roomName +
+                '/' + req.body.date + "/"+ req.body.hour + '/' + req.body.movieID + '/bookTickets')
         })
 })

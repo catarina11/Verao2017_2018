@@ -17,7 +17,10 @@ useRouter.get('/Admin/LoginStaff', (req, res) => {
     if(msg)  ctx.loginError = {message: msg}
     res.render('signInUpStaff',ctx)
 })
-
+useRouter.post('/logout', (req, res) => {
+    req.logout();
+    res.redirect('http://localhost:3000/')
+})
 
 useRouter.post('/login', (req, res, next)=>{
     userService.authenticate(req.body.username, req.body.password, (err, user, info) => {
@@ -43,7 +46,7 @@ useRouter.post('/loginStaff', (req, res, next) => {
         }
         req.logIn(user, (err) => {
             if(err) return next(err)
-            res.redirect('/')
+            res.redirect('http://localhost:3000/')
         })
     })
 })

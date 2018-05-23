@@ -4,6 +4,7 @@ const cinRouter = require('./routes/cinemaRoutes')
 const movieRouter = require('./routes/movieRoutes')
 const userRoute = require('./routes/userRoutes')
 
+
 const favicon = require('serve-favicon')
 const bodyParser = require('body-parser')
 const passport = require('passport')
@@ -30,8 +31,10 @@ router.use(passport.session())
 
 router.get('/',(req, resp, next) =>{
     resp.setHeader('Content-Type', 'text/html')
-
-    resp.render('mainframe', {layout : false})
+    if(req.user!=undefined)
+        resp.render('principalView', {layout : false, menuState:{user: req.user.username}})
+    else
+        resp.render('principalView', {layout : false})
 })
 
 

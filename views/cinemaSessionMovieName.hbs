@@ -1,32 +1,44 @@
 <table>
-    <h3>Sessions: {{theaterName}}</h3>
-            <li>Date: {{date}}
-                <form method="post" action="/cinemas/{{cinemaName}}/{{theaterName}}/{{date}}/{{movie_id}}/editDate">
-                    Change date:<input type="text" name="newDate" value="{{newDate}}">
-                    <input type = "hidden" name ="cinName" value= "{{cinemaName}}" >
-                    <input type = "hidden" name ="roomName" value= "{{theaterName}}" >
-                    <input type = "hidden" name ="date" value= "{{date}}" >
-                    <input type = "hidden" name ="hour" value= "{{hour}}" >
-                    <input type = "hidden" name ="movieID" value= "{{movie_id}}" >
-                    <button id="editDate" value="click">Edit date</button>
-                </form>
-            </li>
-            <li>Hour: {{hour}}
-                <form method="post" action="/cinemas/{{cinemaName}}/{{theaterName}}/{{hour}}/{{movie_id}}/editHour">
-                    Change hour:<input type="text" name="newHour" value="{{newHour}}">
-                    <input type = "hidden" name ="cinName" value= "{{cinemaName}}" >
-                    <input type = "hidden" name ="roomName" value= "{{theaterName}}" >
-                    <input type = "hidden" name ="hour" value= "{{hour}}" >
-                    <input type = "hidden" name ="date" value= "{{date}}" >
-                    <input type = "hidden" name ="movieID" value= "{{movie_id}}" >
-                    <button id="editHour" value="click">Edit Hour</button>
-                </form>
-            </li>
-            <li>
-                <a href ="/movies/{{movie_id}}">
-                    {{movie_name}}
-                </a>
-               
+    <h3>Session of:
 
-            </li>
-    </table>
+        <form method="post" action="/cinemas/{{cinemaName}}/{{theaterName}}/{{date}}/{{hour}}/{{movie_id}}/bookTickets">
+            <input type="hidden" name="cinName" value="{{cinemaName}}">
+            <input type="hidden" name="roomName" value="{{theaterName}}">
+            <input type="hidden" name="date" value="{{date}}">
+            <input type="hidden" name="hour" value="{{hour}}">
+            <input type="hidden" name="movieID" value="{{movie_id}}">
+            <button id="editDate" value="click">{{hour}}</button>
+        </form>
+
+
+    </h3>
+    <li>Date: {{date}}
+        <form method="post" action="/cinemas/{{cinemaName}}/{{theaterName}}/{{date}}/{{movie_id}}/editDate">
+            Change date:<input type="text" name="newDate" value="{{newDate}}">
+            <input type="hidden" name="cinName" value="{{cinemaName}}">
+            <input type="hidden" name="roomName" value="{{theaterName}}">
+            <input type="hidden" name="date" value="{{date}}">
+            <input type="hidden" name="hour" value="{{hour}}">
+            <input type="hidden" name="movieID" value="{{movie_id}}">
+            <button id="editDate" value="click">Edit date</button>
+        </form>
+    </li>
+    <li>Hour: {{hour}}
+        <form method="post" action="/cinemas/{{cinemaName}}/{{theaterName}}/{{hour}}/{{movie_id}}/editHour">
+            Change hour:<input type="text" name="newHour" value="{{newHour}}">
+            <input type="hidden" name="cinName" value="{{cinemaName}}">
+            <input type="hidden" name="roomName" value="{{theaterName}}">
+            <input type="hidden" name="hour" value="{{hour}}">
+            <input type="hidden" name="date" value="{{date}}">
+            <input type="hidden" name="movieID" value="{{movie_id}}">
+            <button id="editHour" value="click">Edit Hour</button>
+        </form>
+    </li>
+    <li>
+        <a href="/movies/{{movie_id}}">
+            {{movie_name}}
+        </a>
+
+
+    </li>
+</table>

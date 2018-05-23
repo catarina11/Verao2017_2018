@@ -5,7 +5,8 @@ module.exports = {
     getAllCinemas,
     getCinema,
     getRoom,
-    getSession
+    getSession,
+    getBookingTickets
 }
 
 function getAllCinemas(cb) {
@@ -48,6 +49,24 @@ function getSession(cinemaName, theaterName,date,hour, cb) {
     })
 }
 
+/************ Booking Tickets *****************/
+function getBookingTickets(cinema, theater, date, hour, idMovie, cb) {
+    getSession(cinema, theater, date, hour, (err, sessions)=>{
+
+        if(err) cb(err)
+        else{
+            let books =sessions.booking
+            books.cinema = cinema
+            books.theater = theater
+            books.movie_id = idMovie
+            books.date=date
+            books.hour=hour
+            books.movieName= sessions.movie_name
+            cb(null, books)
+        }
+
+    })
+}
 
 function requestToDB(id, option, cb) {
     let path = cinemaPathDB + id;

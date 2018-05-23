@@ -8,7 +8,7 @@ module.exports = {
     'authenticate': authenticate,
     'authenticateUser': authenticateUser,
     'signin': signin,
-    'save':save
+    'save':save,
 }
 
 function find(username, cb) {
@@ -56,7 +56,7 @@ function authenticateUser(username, passwd, cb) {
         cb(null, allusers)
     })
 }
-//todo
+
 function signin(admin, user, cb) {
     findStaff(user.username,(err, obj) =>{
         var arrayStaff = obj.users
@@ -73,6 +73,7 @@ function signin(admin, user, cb) {
         save(obj,cb)
     })
 }
+
 function save(user, cb) {
     const path = CINEMA_DB_USERS + 'Admin/'
     const options = {

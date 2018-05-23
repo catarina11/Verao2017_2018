@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /*table mapping*/
+        p.line {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            outline-style: solid;
+            outline-color: gray;
+            width: 20%;
+            background-color:darkgray;
+            text-align: center;
+        }
+       #tableTickets button {
+            background-color: lightgrey; /* Green background */
+            border: 1px solid lightgrey; /* Green border */
+            color: black; /* White text */
+            padding: 10px 24px; /* Some padding */
+            cursor: pointer; /* Pointer/hand icon */
+            float: left; /* Float the buttons side by side */
+        }
+
+        /* Clear floats (clearfix hack) */
+       #tableTickets:after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+       #tableTickets button:not(:last-child) {
+            border-right: none; /* Prevent double borders */
+        }
+
+        /* Add a background color on hover */
+       #tableTickets button:hover {
+            background-color: darkslategray;
+        }
+
+
+    </style>
+</head>
+
+<p class="line">All tickets from this session</p>
+<table class="table-bordered" id="tableTickets">
+    {{#each mappingTickets}}
+        <tr>
+            {{#each rows}}
+                <td>
+                    <form>
+                        <input type="hidden" id="ticket" name="tickets" value="{{name}}">
+                        <button id="delete" value="click" class="alert-danger">{{name}}</button>
+                    </form>
+                </td>
+            {{/each}}
+        </tr>
+    {{/each}}
+</table>
+
+
+

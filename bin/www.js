@@ -9,7 +9,7 @@ cinemaServer.set('port', port)
 const server = http.createServer(cinemaServer)
 
 
-server.listen(port,function(){ console.log("Server listening on: http://localhost:%s/login", port);})
+server.listen(port,function(){ console.log("Server listening on: http://localhost:%s", port);})
 server.on('error', onError)
 server.on('listening', onListening)
 
