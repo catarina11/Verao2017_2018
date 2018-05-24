@@ -1,44 +1,53 @@
+<h1 style="color: white" align="right"><b style="color: mediumslateblue">Cinema: </b>{{cinemas.cinemaName}}</h1>
+<br>
+<h2 style="color: white" align="center"><b style="color: royalblue">Theater: </b>{{cinemas.theaterName}}</h2>
+<br>
+
 <table>
-    <h3>Session of:
-
-        <form method="post" action="/cinemas/{{cinemaName}}/{{theaterName}}/{{date}}/{{hour}}/{{movie_id}}/bookTickets">
-            <input type="hidden" name="cinName" value="{{cinemaName}}">
-            <input type="hidden" name="roomName" value="{{theaterName}}">
-            <input type="hidden" name="date" value="{{date}}">
-            <input type="hidden" name="hour" value="{{hour}}">
-            <input type="hidden" name="movieID" value="{{movie_id}}">
-            <button id="editDate" value="click">{{hour}}</button>
+    <h3 style="color: powderblue; display: inline-block"> <b>Session on</b>
+        <form  style="display: inline-block; padding-left: 0px" type="hidden"  method="post"
+               action="/cinemas/{{cinemas.cinemaName}}/{{cinemas.theaterName}}/{{cinemas.date}}/{{cinemas.hour}}/{{cinemas.movie_id}}/bookTickets">
+            <input type="hidden" name="cinName" value="{{cinemas.cinemaName}}">
+            <input type="hidden" name="roomName" value="{{cinemas.theaterName}}">
+            <input type="hidden" name="date" value="{{cinemas.date}}">
+            <input type="hidden" name="hour" value="{{cinemas.hour}}">
+            <input type="hidden" name="movieID" value="{{cinemas.movie_id}}">
+            <button class="hourOfSession" id="editDate" value="click" >{{cinemas.hour}}</button>
         </form>
-
-
     </h3>
-    <li>Date: {{date}}
-        <form method="post" action="/cinemas/{{cinemaName}}/{{theaterName}}/{{date}}/{{movie_id}}/editDate">
+    <br>
+    <h4 style="color: white; display: inline-block"><b style="color: cornflowerblue">Date: </b>{{cinemas.date}}
+    {{#if menuState.user}}
+        <form  style="display: inline-block; padding-left: 60px" type="hidden"
+               method="post" action="/cinemas/{{cinemas.cinemaName}}/{{cinemas.theaterName}}/{{cinemas.date}}/{{cinemas.movie_id}}/editDate">
             Change date:<input type="text" name="newDate" value="{{newDate}}">
-            <input type="hidden" name="cinName" value="{{cinemaName}}">
-            <input type="hidden" name="roomName" value="{{theaterName}}">
-            <input type="hidden" name="date" value="{{date}}">
-            <input type="hidden" name="hour" value="{{hour}}">
-            <input type="hidden" name="movieID" value="{{movie_id}}">
-            <button id="editDate" value="click">Edit date</button>
+            <input type="hidden" name="cinName" value="{{cinemas.cinemaName}}">
+            <input type="hidden" name="roomName" value="{{cinemas.theaterName}}">
+            <input type="hidden" name="date" value="{{cinemas.date}}">
+            <input type="hidden" name="hour" value="{{cinemas.hour}}">
+            <input type="hidden" name="movieID" value="{{cinemas.movie_id}}">
+            <button class="button1" id="editDate" value="click">Edit date</button>
         </form>
-    </li>
-    <li>Hour: {{hour}}
-        <form method="post" action="/cinemas/{{cinemaName}}/{{theaterName}}/{{hour}}/{{movie_id}}/editHour">
-            Change hour:<input type="text" name="newHour" value="{{newHour}}">
-            <input type="hidden" name="cinName" value="{{cinemaName}}">
-            <input type="hidden" name="roomName" value="{{theaterName}}">
-            <input type="hidden" name="hour" value="{{hour}}">
-            <input type="hidden" name="date" value="{{date}}">
-            <input type="hidden" name="movieID" value="{{movie_id}}">
-            <button id="editHour" value="click">Edit Hour</button>
+    {{/if}}
+    </h4>
+    <br>
+    <h4 style="color: white; display: inline-block"><b style="color: cornflowerblue">Hour: </b>{{cinemas.hour}}
+    {{#if menuState.user}}
+        <form  style="display: inline-block; padding-left: 99px" type="hidden"
+                method="post" action="/cinemas/{{cinemas.cinemaName}}/{{cinemas.theaterName}}/{{cinemas.hour}}/{{cinemas.movie_id}}/editHour">
+            Change hour:<input type="text" name="newHour" value="{{cinemas.newHour}}">
+            <input type="hidden" name="cinName" value="{{cinemas.cinemaName}}">
+            <input type="hidden" name="roomName" value="{{cinemas.theaterName}}">
+            <input type="hidden" name="hour" value="{{cinemas.hour}}">
+            <input type="hidden" name="date" value="{{cinemas.date}}">
+            <input type="hidden" name="movieID" value="{{cinemas.movie_id}}">
+            <button class="button1" id="editHour" value="click">Edit Hour</button>
         </form>
-    </li>
-    <li>
-        <a href="/movies/{{movie_id}}">
-            {{movie_name}}
+    {{/if}}
+    </h4>
+    <h4>
+        <a style="color: cornflowerblue" href="/movies/{{cinemas.movie_id}}">
+            {{cinemas.movie_name}}
         </a>
-
-
-    </li>
+    </h4>
 </table>

@@ -64,7 +64,10 @@ router.get('/:name/:theater', (req, resp, next)=>{
 router.get('/:name/:theater/session', (req, resp, next)=>{
     cin.getSession(req.params.name, req.params.theater, req.query.date, req.query.hour, (err,data)=>{
         if(err) return next(err)
-        resp.render('cinemaSessionMovieName', data)
+        if(req.user!=undefined)
+            resp.render('cinemaSessionMovieName', {cinemas: data, menuState:{user: req.user.username}})
+        else
+            resp.render('cinemaSessionMovieName', {cinemas: data})
     })
 })
 

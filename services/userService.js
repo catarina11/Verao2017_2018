@@ -67,8 +67,6 @@ function signin(admin, user, cb) {
             else ++idx
             if(obj.users.length==idx)
                 arrayStaff.push(user)
-
-
         })
         save(obj,cb)
     })

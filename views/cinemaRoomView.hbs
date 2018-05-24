@@ -98,13 +98,12 @@
             {{/each}}
         </table>
         <br>
-        {{#if previousPage}}
-            <a class="buttonPage" href="?page={{previousPage}}"> previous page </a>
+        {{#if cinemas.previousPage}}
+            <a class="buttonPage" href="?page={{cinemas.previousPage}}"> previous page </a>
         {{/if}}
 
-        {{#if nextPage}}
-            <a class="buttonPage" href="?page={{nextPage}}"> next page </a>
+        {{#if cinemas.nextPage}}
+            <a class="buttonPage" href="?page={{cinemas.nextPage}}"> next page </a>
         {{/if}}
-
     </div>
 {{/if}}
