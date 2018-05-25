@@ -52,19 +52,19 @@ function getSession(cinemaName, theaterName,date,hour, cb) {
 /************ Booking Tickets *****************/
 function getBookingTickets(cinema, theater, date, hour, idMovie, cb) {
     getSession(cinema, theater, date, hour, (err, sessions)=>{
-
+        let books = null
         if(err) cb(err)
         else{
-            let books =sessions.booking
+            books =sessions.booking
             books.cinema = cinema
             books.theater = theater
             books.movie_id = idMovie
             books.date=date
             books.hour=hour
             books.movieName= sessions.movie_name
-            cb(null, books)
-        }
 
+        }
+        cb(null, books)
     })
 }
 

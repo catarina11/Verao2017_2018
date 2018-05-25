@@ -76,7 +76,13 @@ router.get('/:cinemaName/:roomName/:date/:hour/:movie_id/bookTickets', (req, res
    cin.getBookingTickets(req.params.cinemaName, req.params.roomName,
        req.params.date, req.params.hour, req.params.movie_id, (err,data)=>{
            if(err) return next(err)
-           resp.render('bookTickets.hbs',data)
+           if(req.user!=undefined)
+               resp.render('bookTickets', {cinemas:data, menuState:{user: req.user.username}})
+           else{
+               resp.render('bookTickets',{cinemas: data})
+
+           }
+
    })
 
 

@@ -15,7 +15,10 @@ module.exports = router
 router.get('/:movie_id', (req, resp, next)=>{
     movie.getIDofMovie(req.params.movie_id, (err, data)=>{
         if(err) return next(err)
-        resp.render('movieView', data)
+        if(req.user!=undefined)
+            resp.render('movieView', {cinemas: data, menuState:{user: req.user.username}})
+        else
+            resp.render('movieView', {cinemas: data})
     })
 })
 

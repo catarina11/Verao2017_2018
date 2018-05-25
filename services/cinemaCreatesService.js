@@ -73,6 +73,10 @@ function createBookingTickets(cinema, theater, date, hour, id, cb) {
                 data.rooms[theater].sessions[idxofSessionMovieByID].booking.availableSeats = placesAvailable
                 data.rooms[theater].sessions[idxofSessionMovieByID].booking.client = {}
             }
+            else{
+                data.rooms[theater].sessions[idxofSessionMovieByID].booking.mappingTickets = map
+                data.rooms[theater].sessions[idxofSessionMovieByID].booking.availableSeats = placesAvailable
+            }
         }
         save(data, cinema, cb)
     })
