@@ -82,40 +82,43 @@ function createBookingTickets(cinema, theater, date, hour, id, cb) {
 function reservedTickets(cinema, theater, date, hour, id, client, email, phone, seats, cb) {
 
     cinemaGets.getCinema(cinema, (err, data) => {
-        var seatsAux = seats.replace('[', '').replace(']', '').replace(',', '')
-        var string= seatsAux.split('\"').join('');
-        var str = string.match(/.{2}/g)
+        var seatsAux = seats.split('[').join('') //seats.replace('[', '').replace(']', '').replace(',', '')
+        seatsAux = seatsAux.split(']').join('')
+        seatsAux = seatsAux.split(',').join('')
+        seatsAux = seatsAux.split('\"').join('');
+        var str = seatsAux.match(/.{2}/g)
+        str.sort()
+            if (err) return cb(err)
+            else {
+                let idxofSessionMovieByID = findSessionByIdMovie(data.rooms[theater].sessions, date, hour, id)
+                let objectBooking = data.rooms[theater].sessions[idxofSessionMovieByID].booking.mappingTickets
+                let i = 0, k = 0
 
+                objectBooking.forEach(r => {
+                    var rows = r["rows"]
+                    rows.forEach(array => {
+                        var seat = str[k]
+                        if (array.name == str[k]) {
+                            array.client = client
+                            array.email = email
+                            array.phone = phone
+                            array.reserved = 1
+                            ++k
+                        }
+                        if (k == str.length) {
+                            k = 0
+                        }
 
-        if (err) return cb(err)
-        else {
-            let idxofSessionMovieByID = findSessionByIdMovie(data.rooms[theater].sessions, date, hour, id)
-            let objectBooking = data.rooms[theater].sessions[idxofSessionMovieByID].booking.mappingTickets
-            let i = 0, k = 0
-
-            objectBooking.forEach(r => {
-                var rows = r["rows"]
-                rows.forEach(array=>{
-                    var seat = str[k]
-                    if (array.name == str[k]) {
-                        array.client = client
-                        array.email = email
-                        array.phone = phone
-                        array.reserved = 1
-                        ++k
-                    }
-                    if (k == str.length){
-                        k = 0
-                    }
+                    })
 
                 })
 
-            })
-
-            save(data, cinema, cb)
+                save(data, cinema, cb)
+            }
         }
-    })
+    )
 }
+
 
 function findSessionByIdMovie(sess, date, hour, id) {
     var idx = 0

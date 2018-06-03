@@ -207,9 +207,10 @@ router.post('/:cinemaName/:roomName/:date/:hour/:movie_id/book', (req, resp, nex
         req.params.date, req.params.hour, req.params.movie_id,
         req.body.client, req.body.email, req.body.phone, req.body.seats, (err, data) => {
             if (err) return next(err)
-            /*resp.redirect('/cinemas/' + req.params.cinemaName + '/' + req.params.roomName +
-                '/' + req.params.date + "/"+ req.params.hour + '/' + req.params.movie_id + '/bookTickets')*/
             resp.status(200).send()
+           // resp.redirect('/cinemas/' + req.params.cinemaName + '/' + req.params.roomName +
+             //   '/' + req.params.date + "/"+ req.params.hour + '/' + req.params.movie_id + '/bookTickets')
+
         })
 
 })

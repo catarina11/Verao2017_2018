@@ -8,24 +8,23 @@
 
 <h4 style="color: white; display: inline-block"><b style="color: lightskyblue; padding-left: 30px">Number of
     row: </b>{{cinemas.rows}}
-    {{#if menuState.user}}
-        <form style="display: inline-block; padding-left: 60px" type="hidden" method="post"
+
+      <!-- {  <form style="display: inline-block; padding-left: 60px" type="hidden" method="post"
               action="/cinemas/{{cinemas.cinemaName}}/{{cinemas.name}}/{{cinemas.number}}/editNumberOfRows">
             Change room number:<input style="color: black" type="text" name="newNumbRow" value="{{newNumbRow}}">
             <input type="hidden" name="cinName" value="{{cinemas.cinemaName}}">
             <input type="hidden" name="roomName" value="{{cinemas.name}}">
             <input type="hidden" name="roomNumb" value="{{cinemas.number}}">
             <button class="button1" id="editRows" value="click">Edit number of row</button>
-        </form>
-    {{/if}}
+        </form>-->
+
 </h4>
 
 
-
-    <h4 style="color: white" align="left"><b style="color: lightskyblue; padding-left: 30px">Seats per of
-        row </b>{{cinemas.seats}}
-    {{#if menuState.user}}
-        <form style="display: inline-block; padding-left: 55px" type="hidden" method="post"
+<h4 style="color: white" align="left"><b style="color: lightskyblue; padding-left: 30px">Seats per of
+    row </b>{{cinemas.seats}}
+    <!--
+      <form style="display: inline-block; padding-left: 55px" type="hidden" method="post"
               action="/cinemas/{{cinemas.cinemaName}}/{{cinemas.name}}/{{cinemas.number}}/editSeats">
             Change room number:<input style="color: black" type="text" name="newValSeats" value="{{newValSeats}}">
             <input type="hidden" name="cinName" value="{{cinemas.cinemaName}}">
@@ -33,8 +32,8 @@
             <input type="hidden" name="roomNumb" value="{{cinemas.number}}">
             <button class="button1" id="editSeats" value="click">Edit seats per row</button>
         </form>
-    {{/if}}
-    </h4>
+    -->
+</h4>
 
 
 <h2 style="color: white" align="left"><b style="color: powderblue">Sessions: </b></h2>
@@ -54,7 +53,8 @@
             </td>
             {{#if ../menuState.user}}
                 <td>
-                    <form method="post" action="/cinemas/{{../cinemas.cinemaName}}/{{../cinemas.name}}/{{movie_id}}/delete">
+                    <form method="post"
+                          action="/cinemas/{{../cinemas.cinemaName}}/{{../cinemas.name}}/{{movie_id}}/delete">
                         <input type="hidden" name="cinName" value="{{../cinemas.cinemaName}}">
                         <input type="hidden" name="roomName" value="{{../cinemas.name}}">
                         <input type="hidden" name="numberRoom" value="{{../cinemas.number}}">
