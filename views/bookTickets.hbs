@@ -1,43 +1,114 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
-    <style>
-        #tableTickets {
-            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-            border-collapse: collapse;
-            width: 10%;
-            background: #2aabd2;
-        }
-
-        #tableTickets td  {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-
-      /*  #tableTickets tr:hover {background-color: #ddd;}*/
-
-
-
-    </style>
+    <!--<script type="application/javascript" src="../public/javascripts/reserveTicket.js" ></script>-->
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 </head>
 <br>
 <h3 style="color: cornflowerblue; width: 50%">All tickets from this session </h3>
 <br>
-<table align="left" class="table-bordered" id="tableTickets">
+<table class="table-bordered" id="tableTickets">
     {{#each cinemas.mappingTickets}}
         <tr>
             {{#each rows}}
-
                 <td>
-                    <form>
-                        <input type="hidden" id="ticket" name="tickets" value="{{name}}">
-                        <button id="delete" value="click" class="alert-info">{{name}}</button>
-                    </form>
+                    {{#if reserved}}
+                        <input class="teste" type="hidden" id="ticket" name="tickets" value="{{name}}">
+                        <button style="background: #3c763d" disabled id="ticketReserve" value={{name}}  class="collapsible">{{name}}</button>
+                    {{else}}
+                        <input class="teste" type="hidden" id="ticket" name="tickets" value="{{name}}">
+                        <button id="ticketReserve" value={{name}}  class="collapsible">{{name}} </button>
+                    {{/if}}
+
                 </td>
             {{/each}}
         </tr>
     {{/each}}
 </table>
+<br>
+
+<form style="border:1px solid #ccc">
+    <div class="container" style="background-color:white">
+        <input type="hidden" id="cinName" value="{{cinemas.cinema}}">
+        <input type="hidden" id="roomName" value="{{cinemas.theater}}">
+        <input type="hidden" id="date" value="{{cinemas.date}}">
+        <input type="hidden" id="hour" value="{{cinemas.hour}}">
+        <input type="hidden" id="movieID" value="{{cinemas.movie_id}}">
+    </div>
+
+    <div class="booking">
+        <h1>Book Tickets</h1>
+        <p>Please fill out this form to finalize a reservation of tickets.</p>
+        <hr>
+
+        <label for="nameClient"><b>Name</b></label>
+        <input type="text" placeholder="Enter Name" id="client" required>
+
+        <label for="Email"><b>Email</b></label>
+        <input type="text" placeholder="Enter email" id="emailClient" required>
+
+        <label for="phone"><b>Phone Contact</b></label>
+        <input type="text" placeholder="Enter Phone Contact" id="phoneClient" required>
+
+        <div class="finalizeBooking">
+            <button type="submit" class="reserved">Ticket Reservation</button>
+        </div>
+    </div>
+</form>
+
+<script>
+    $(document).ready(function () {
+        const arr = []
+        let rows = document.getElementsByTagName("td");
+        $('button').each(function () {
+            $(this).click(function () {
+                //TODO
+                let idx = arr.indexOf($(this).val())
+                // for (var i = 0; i < rows.length; i++) {
+                // if($(this).val()== rows[i].innerText){
+
+                if (idx != -1) {
+                    //$(this).prop("disabled",false); //enable button
+                    arr.splice(idx, 1);
+                    $(this).css('background', '#ddd');
+                }
+                else {
+                    // $(this).prop("disabled",true); //disable button
+                    arr.push($(this).val());
+                    $(this).css('background', 'red');
+
+                }
+
+                //}
+                //}
+
+            });
+        });
+
+        $(".reserved").click(function (event) {
+            const cinema = $('#cinName').val()
+            const theater = $('#roomName').val()
+            const date = $('#date').val()
+            const hour = $('#hour').val()
+            const movieID = $('#movieID').val()
+
+            const nameClient = $('#client').val()
+            const email = $('#emailClient').val()
+            const phoneClient = $('#phoneClient').val()
+
+            $.post(
+                    `/cinemas/${cinema}/${theater}/${date}/${hour}/${movieID}/book`,
+                    {seats:  JSON.stringify(arr.filter(i=> i.length>0)), client: nameClient, email:email, phone:phoneClient},
+                    (data)=>{
+                        if(data==undefined) alert(data)
+                        else{
+                            alert(`Seats reserved: ${arr.filter(i=>i.length>0).join()} by ${nameClient}`)
+                        }
+                    }
+            )
 
 
+        })
+    })
 
+</script>

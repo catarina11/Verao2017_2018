@@ -17,9 +17,6 @@ const cinemaEdits = require('../services/cinemaEditsService')
 module.exports = router
 
 /************************************GETS************************************/
-
-
-
 router.get('/', (req, resp, next)=>{
     cin.getAllCinemas((err, data)=>{
         if(err) return next(err)
@@ -79,7 +76,7 @@ router.get('/:cinemaName/:roomName/:date/:hour/:movie_id/bookTickets', (req, res
            if(req.user!=undefined)
                resp.render('bookTickets', {cinemas:data, menuState:{user: req.user.username}})
            else{
-               resp.render('bookTickets',{cinemas: data})
+               resp.render('bookTickets',{cinemas: data/*, layout: false*/})
 
            }
 
@@ -205,11 +202,14 @@ router.post('/:cinemaName/:roomName/:date/:hour/:movie_id/bookTickets', (req, re
         })
 })
 
-router.post('/:cinemaName/:roomName/:date/:hour/:movie_id/:rowSeat/bookTickets', (req, resp, next)=>{
-    cinemaCreates.reserve(req.body.cinName, req.body.roomName,
-        req.body.date, req.body.hour, req.body.movieID, req.body.rowSeat, (err, data)=>{
+router.post('/:cinemaName/:roomName/:date/:hour/:movie_id/book', (req, resp, next)=> {
+    cinemaCreates.reservedTickets(req.params.cinemaName, req.params.roomName,
+        req.params.date, req.params.hour, req.params.movie_id,
+        req.body.client, req.body.email, req.body.phone, req.body.seats, (err, data) => {
             if (err) return next(err)
-            resp.redirect('/cinemas/' + req.body.cinName + '/' + req.body.roomName +
-                '/' + req.body.date + "/"+ req.body.hour + '/' + req.body.movieID + '/bookTickets')
+            /*resp.redirect('/cinemas/' + req.params.cinemaName + '/' + req.params.roomName +
+                '/' + req.params.date + "/"+ req.params.hour + '/' + req.params.movie_id + '/bookTickets')*/
+            resp.status(200).send()
         })
+
 })

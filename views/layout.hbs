@@ -174,6 +174,77 @@
               margin-right: auto;
               width: 20%;
           }
+          #tableTickets {
+              font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+              border-collapse: collapse;
+              width: 10%;
+              background: #2aabd2;
+          }
+
+          #tableTickets td  {
+              border: 1px solid #ddd;
+              padding: 20px;
+          }
+
+          /*client*/
+          /* user*/
+          .booking input[type=text] {
+              width: 100%;
+              margin: 5px 0 22px 0;
+              display: inline-block;
+              border: none;
+              background: #f1f1f1;
+
+          }
+
+          .booking input[type=text]:focus {
+              background-color: #ddd;
+              outline: none;
+          }
+
+          hr {
+              border: 1px solid #f1f1f1;
+              margin-bottom: 25px;
+          }
+
+          /* Set a style for all buttons */
+          .finalizeBooking button {
+              background-color: #4CAF50;
+              color: white;
+              padding: 14px 20px;
+              margin: 8px 0;
+              border: none;
+              cursor: pointer;
+              width: 100%;
+              opacity: 0.9;
+          }
+
+          .finalizeBooking button:hover {
+              opacity:1;
+          }
+
+          .booking.reserved {
+              width: 100%;
+          }
+
+          /* Add padding to container elements */
+          .booking {
+              padding: 16px;
+          }
+
+          /* Clear floats */
+          .clearfix::after {
+              content: "";
+              clear: both;
+              display: table;
+          }
+
+          /* Change styles for cancel button and signup button on extra small screens */
+          @media screen and (max-width: 300px) {
+              .reserved {
+                  width: 100%;
+              }
+          }
 
       </style>
   </head>
