@@ -1,0 +1,37 @@
+<form action="/cinemas/{{id}}">
+    <select id="cinemas">
+
+    </select>
+
+    <select id="movies">
+
+    </select>
+</form>
+<script>
+    $(document).ready(function () {
+        $.get(
+                '/cinemas/getAllCinemas4mainpage',
+                (data, status) => {
+                    //if (status == "sucess") {
+                        $.each(data.results, function(key, value) {
+                            console.log(key)
+                            console.log(value)
+                            console.log(data.results.id)
+                            $('#cinemas')
+                                    .append($("<option></option>")
+                                            .attr("value",value.id)
+                                            .text(value.id));
+                        });
+                    //}
+                }
+
+                /*(data, status) => {
+                    if (status == "sucess") {
+                        data.results.forEach(c =>
+                                $('#cinemas').after($('<option></option>').value(c.id))
+                        )
+                    }
+                }*/
+        )
+    })
+</script>

@@ -2,6 +2,7 @@
 const CinemaObj = require('./../Model/CinemaObj')
 const api_key = '30f0dd7f4bfc0d5198885f45d68870f9'
 const Ratelimiter = require('request-rate-limiter')
+
 const limiter = new Ratelimiter({
     rate: 40
     ,interval: 10
@@ -15,7 +16,7 @@ const moviesInExibitionCache = []
 
 module.exports = {
         getIDofMovie,
-        getMoviesInExibition
+        getMoviesInExibition,
     }
 
     /*obter as informções do filme a partir do id (chamada à api)
@@ -65,4 +66,6 @@ module.exports = {
             cb(null, JSON.parse(res.body))
         })
     }
+
+
 

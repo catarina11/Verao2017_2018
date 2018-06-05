@@ -17,6 +17,15 @@ const cinemaEdits = require('../services/cinemaEditsService')
 module.exports = router
 
 /************************************GETS************************************/
+router.get('/getAllCinemas4mainpage', (req, resp, next)=>{
+    cin.getAllCinemas((err, data)=>{
+        if(err) resp.status(503).send(false);
+        else{
+            resp.status(200).send(data)
+        }
+
+    })
+})
 router.get('/', (req, resp, next)=>{
     cin.getAllCinemas((err, data)=>{
         if(err) return next(err)

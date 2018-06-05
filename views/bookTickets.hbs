@@ -37,17 +37,17 @@
     </div>
 
     <div class="booking">
-        <h1>Book Tickets</h1>
-        <p>Please fill out this form to finalize a reservation of tickets.</p>
+        <h1 style="color: lightskyblue">Book Tickets</h1>
+        <p style="color: lightskyblue">Please fill out this form to finalize a reservation of tickets.</p>
         <hr>
 
-        <label for="nameClient"><b>Name</b></label>
+        <label for="nameClient"><b style="color: lightskyblue">Name</b></label>
         <input type="text" placeholder="Enter Name" id="client" required>
 
-        <label for="Email"><b>Email</b></label>
+        <label for="Email"><b style="color: lightskyblue">Email</b></label>
         <input type="text" placeholder="Enter email" id="emailClient" required>
 
-        <label for="phone"><b>Phone Contact</b></label>
+        <label for="phone"><b style="color: lightskyblue">Phone Contact</b></label>
         <input type="text" placeholder="Enter Phone Contact" id="phoneClient" required>
 
         <div class="finalizeBooking">
@@ -59,29 +59,18 @@
 <script>
     $(document).ready(function () {
         const arr = []
-        let rows = document.getElementsByTagName("td");
         $('button').each(function () {
             $(this).click(function () {
-                //TODO
                 let idx = arr.indexOf($(this).val())
-                // for (var i = 0; i < rows.length; i++) {
-                // if($(this).val()== rows[i].innerText){
-
                 if (idx != -1) {
-                    //$(this).prop("disabled",false); //enable button
                     arr.splice(idx, 1);
                     $(this).css('background', '#ddd');
                 }
                 else {
-                    // $(this).prop("disabled",true); //disable button
                     arr.push($(this).val());
                     $(this).css('background', 'red');
 
                 }
-
-                //}
-                //}
-
             });
         });
 

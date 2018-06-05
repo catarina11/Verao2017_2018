@@ -46,12 +46,11 @@ useRouter.post('/loginStaff', (req, res, next) => {
         }
         req.logIn(user, (err) => {
             if(err) return next(err)
-            res.redirect('http://localhost:3000/')
+            res.render('principalView', { menuState:{user: req.user.username}})
         })
     })
 })
 
-//todo
 useRouter.post('/registerStaff', (req, res, next) => {
     let user = {
         'username': req.body.username,
