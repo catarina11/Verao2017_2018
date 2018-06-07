@@ -1,4 +1,4 @@
-<form action="/cinemas/{{id}}">
+<form>
     <select id="cinemas">
 
     </select>
@@ -6,6 +6,7 @@
     <select id="movies">
 
     </select>
+    <button id="selectButton" value="click">Submit</button>
 </form>
 <script>
     $(document).ready(function () {
@@ -14,24 +15,33 @@
                 (data, status) => {
                     //if (status == "sucess") {
                         $.each(data.results, function(key, value) {
-                            console.log(key)
-                            console.log(value)
-                            console.log(data.results.id)
                             $('#cinemas')
                                     .append($("<option></option>")
                                             .attr("value",value.id)
-                                            .text(value.id));
+                                            .text(value.id)
+
+                                    )
+
                         });
                     //}
+                    //$('#cinemas').find('*').addEventListener('click',()=>curr = $(this).val())
                 }
-
-                /*(data, status) => {
-                    if (status == "sucess") {
-                        data.results.forEach(c =>
-                                $('#cinemas').after($('<option></option>').value(c.id))
-                        )
-                    }
-                }*/
         )
+
+
+        $('#selectButton').click((ev)=>{
+            var x = '/cinemas/'+$('#cinemas :selected').text()
+            console.log(x)
+           /* $.get(
+                '/cinemas/'+$('#cinemas').find(':selected').text()
+                    ,()=>{}
+            )*/
+           //$.load(x);
+           //$(location).attr('href',x)
+           // $.location.href = x;
+            window.location.href = x;
+            return false;
+        })
     })
+
 </script>
