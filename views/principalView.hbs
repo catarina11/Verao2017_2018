@@ -3,17 +3,13 @@
 
     </select>
 
-    <select id="movies">
-
-    </select>
     <button id="selectButton" value="click">Submit</button>
 </form>
 <script>
     $(document).ready(function () {
         $.get(
                 '/cinemas/getAllCinemas4mainpage',
-                (data, status) => {
-                    //if (status == "sucess") {
+                (data) => {
                         $.each(data.results, function(key, value) {
                             $('#cinemas')
                                     .append($("<option></option>")
@@ -23,23 +19,12 @@
                                     )
 
                         });
-                    //}
-                    //$('#cinemas').find('*').addEventListener('click',()=>curr = $(this).val())
                 }
         )
 
-
         $('#selectButton').click((ev)=>{
-            var x = '/cinemas/'+$('#cinemas :selected').text()
-            console.log(x)
-           /* $.get(
-                '/cinemas/'+$('#cinemas').find(':selected').text()
-                    ,()=>{}
-            )*/
-           //$.load(x);
-           //$(location).attr('href',x)
-           // $.location.href = x;
-            window.location.href = x;
+            var url = '/cinemas/'+$('#cinemas :selected').text()
+            window.location.href = url;
             return false;
         })
     })

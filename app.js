@@ -30,12 +30,17 @@ router.use(flash())
 router.use(passport.initialize())
 router.use(passport.session())
 
+
+
 router.get('/', (req, resp, next) => {
     resp.setHeader('Content-Type', 'text/html')
-    if (req.user != undefined)
-        resp.render('principalView', {menuState: {user: req.user.username}, cinemas: data.results})
-    else
-        resp.render('principalView')
+    cin.getAllCinemas((err, data)=>{
+        if (req.user != undefined)
+            resp.render('principalView', {menuState: {user: req.user.username}, cinemas: data.results})
+        else
+            resp.render('principalView')
+    })
+
 })
 
 

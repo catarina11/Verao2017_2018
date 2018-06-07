@@ -30,4 +30,3 @@ router.get('/allMovies/inExibitionTheaters', (req, resp, next)=>{
 })
 
 
-
